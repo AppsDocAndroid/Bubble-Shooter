@@ -21,7 +21,7 @@ public class Bubble {
 	double deltaY ;
 	boolean checked ;
 	static final private float inwordFactor = 0.15f;
-	
+	static final int VELOCITY = 10;
 	public Bubble(int x,int y ,int color) {
 		sprite = new Sprite(BITMAP, GameScene.bubbleImagedimention, GameScene.bubbleImagedimention);
 		reIntialize(x, y, color);
@@ -66,7 +66,7 @@ public class Bubble {
 	
 	public void fire(int x,int y)
 	{
-		velocity = 5 ;
+		velocity = VELOCITY ;
 		calculateTheta(x-GameScene.originalPoint.x, GameScene.originalPoint.y-y);
 	}
 	
@@ -117,12 +117,12 @@ public class Bubble {
 		boolean downRight =  GameScene.array[rowI2][columnI2] != null;
 		if(upRight || upLeft || downRight || downLeft){
 			
-//			System.out.println("rowI1 = " + rowI1);
-//			System.out.println("rowI2 = " + rowI2);
-//			System.out.println("columnI1 = " + columnI1);
-//			System.out.println("columnI2 = " + columnI2);
-//			System.out.println(upLeft+" "+upRight);
-//			System.out.println(downLeft+" "+downRight);
+			System.out.println("rowI1 = " + rowI1);
+			System.out.println("rowI2 = " + rowI2);
+			System.out.println("columnI1 = " + columnI1);
+			System.out.println("columnI2 = " + columnI2);
+			System.out.println(upLeft+" "+upRight);
+			System.out.println(downLeft+" "+downRight);
 			
 			if(color == GameScene.superBubbleColor){
 				if(upLeft)
@@ -160,8 +160,33 @@ public class Bubble {
 			
 			System.out.println("row is "+row);
 			//column
-			
-			if(upLeft || downLeft){
+			if( upLeft && downRight ){
+				System.out.println("upLeft && downRight");
+				if(row%2 == 0){
+					System.out.println("even col");
+					column = columnI1;
+				}
+				
+				else{
+					System.out.println("odd col");
+					column = columnI1;
+				}
+				
+			}
+			else if (upRight && downLeft){
+				System.out.println("upRight && downLeft");
+				if(row%2 == 0){
+					System.out.println("even col+1");
+					column = columnI1+1;
+				}
+				
+				else{
+					System.out.println("odd col+1");
+					column = columnI1+1;
+				}
+				
+			}
+			else if(upLeft || downLeft){
 				System.out.println("upLeft || downLeft");
 				if(row%2 == 0){
 					System.out.println("even col+1");
@@ -276,20 +301,23 @@ public class Bubble {
 	}
 	public void panicRecover(){
 		System.err.println("________PANIC_RECOVERY___________");
-		if(column+1 <= GameScene.array[0].length && (GameScene.array[row][column+1] != null)){
+		if(column+1 < GameScene.array[0].length && (GameScene.array[row][column+1] == null)){
 			column++;
 		}
 		else if(row-1 > 0 && (GameScene.array[row-1][column] != null)){
 			row--;
 		}
-		else if(row+1 <= GameScene.array.length &&  (GameScene.array[row+1][column] != null) ){
+		else if(row+1 < GameScene.array.length &&  (GameScene.array[row+1][column] == null) ){
 			row++;
 		}
-		else if(column-1 > 0 &&  (GameScene.array[row+1][column] != null)){
+		else if(column-1 > 0 &&  (GameScene.array[row][column-1] == null)){
 			column--;
 		}
-		else
+		else{
 			System.out.println("_____________RECOVERY_FAILED______________");
+			
+		}
+			
 	}
 	public void checkFalls ()
 	{

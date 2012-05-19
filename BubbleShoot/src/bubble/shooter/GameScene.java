@@ -84,7 +84,13 @@ public class GameScene extends Scene {// implements SensorEventListener{
 	    // create Objects
 	    layer = new Layer();
 	    blayer = new Layer();
-	    Bitmap background = BitmapFactory.decodeResource(resources, R.drawable.background);
+	    Bitmap background;
+	    if(Options.fotohBoolean){
+	    	background= BitmapFactory.decodeResource(resources, R.drawable.fotouh_pic);
+	    }else{
+	        background= BitmapFactory.decodeResource(resources, R.drawable.background);
+	    }
+	
 	    Bitmap shootSpotBitmap = BitmapFactory.decodeResource(resources, R.drawable.shoot_point);
 	    Sprite shootspotSprite = new Sprite(shootSpotBitmap, shootSpotBitmap.getWidth(), shootSpotBitmap.getHeight());
 	    Sprite bsprite = new Sprite(background, background.getWidth(),background.getHeight());
@@ -173,6 +179,16 @@ public class GameScene extends Scene {// implements SensorEventListener{
 	@Override
 	public void run() 
 	{
+		// Check End to back
+		if(gameEnded){
+			if(timer++ == 200){
+				timer = 0;
+				BubbleShootActivity.BubbleActivity.finish();
+			}
+			super.run();
+			return;
+		}	
+		
 		// For all moving bubbles check Collision
 		checkCollision();
 		
@@ -205,15 +221,7 @@ public class GameScene extends Scene {// implements SensorEventListener{
 				winlose(false);
 		}
 		
-		// Check End to back
-		if(gameEnded){
-			if(timer++ == 200){
-				timer = 0;
-				BubbleShootActivity.BubbleActivity.finish();
-			}
-			super.run();
-			return;
-		}		
+	
 		super.run();
 	}
 	

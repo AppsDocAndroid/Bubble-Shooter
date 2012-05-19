@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="C:/Users/M.Saleh/Desktop/CSD 2nd/Embeded Systems/Labs/Android/Bubble Shooter/JSON/json_simple-1.1-all/lib/json_simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/-Mazen/Bubble-Shooter/BubbleShoot/json_simple-1.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
